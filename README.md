@@ -4,6 +4,6 @@ This Approov integration example will show you how simple its to integrate the [
 
 If you landed in this repo without any prior knowledge about [Approov](https://approov.io/), then take a look at our overall architecture:
 
-![Approov Architecture](https://www.approov.io/docs/v2.1/images/approov-2-docs/architecture/overall-architecture.png)
+![Approov Architecture](./docs/assets/img/approov-overall-architecture.png)
 
 If you are serious about API security, then we invite you to keep tabs on our [Blog](https://blog.approov.io), that its regualrely updated with educational content on API and Mobile App security.
