@@ -1,0 +1,466 @@
+{
+	"info": {
+		"_postman_id": "a8e50f5d-97c1-4248-b346-a89c2145c324",
+		"name": "Approov Nginx Plus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Protect Static Assests",
+			"item": [
+				{
+					"name": "PDF",
+					"item": [
+						{
+							"name": "Valid Request",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9U",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/nginx-modules-reference.pdf",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"nginx-modules-reference.pdf"
+									]
+								},
+								"description": "The request includes a valid Approov Token header."
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Request",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9A"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/nginx-modules-reference.pdf",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"nginx-modules-reference.pdf"
+									]
+								},
+								"description": "The request includes an Invalid Approov Token header."
+							},
+							"response": []
+						}
+					],
+					"description": "The PDF can only be retrieved if the request includes a valid Approov Token header.",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "db9244b1-97b1-4819-be6d-c40b19b666ab",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7355611-e1ab-415f-93af-9dd1ea884893",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Valid Requests",
+					"item": [
+						{
+							"name": "Token Binding",
+							"item": [
+								{
+									"name": "Valid Approov Token Binding",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MTgwMTgyMjQuNzgwMzY4LCJwYXkiOiJWUUZGUEpaNjgyYU90eFJNanowa3RDSG15V2VFRWVTTXZYaDF1RDhKM3ZrPSJ9.N-KwuLeUt9s6TDibhX32AIkhobCYVh5-brVESqUxdBk"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/approov-token-binding-protected",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"approov-token-binding-protected"
+											]
+										},
+										"description": "The approov token contains a payload that is a base64 string of the sha256 hash for the oauth2-token.\n\nThis ties the approov token with the user authentication token, thus securing further the request."
+									},
+									"response": []
+								},
+								{
+									"name": "Without the Approov Token Binding",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9U"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/approov-token-binding-protected",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"approov-token-binding-protected"
+											]
+										},
+										"description": "We need to accept the request as valid, even when the token binding is normally used in the Approov Token, but is not present. This will happen when the Approov token comes from the Approov failover running in the Google Cloud."
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "6e5942d6-d264-48ac-8f8a-6c5efe5d7aa8",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9b79e86d-6863-4438-9906-db0f3079f038",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Approov Token with valid signature and expire time",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9U"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/approov-token-protected",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"approov-token-protected"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Invalid Requests",
+					"item": [
+						{
+							"name": "Token Binding",
+							"item": [
+								{
+									"name": "Invalid Approov Token Binding",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.v9CxDagzviU6VcilyT7pC793FDzm_bjqG2sQqmmU5GE"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/approov-token-binding-protected",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"approov-token-binding-protected"
+											]
+										},
+										"description": "The key `pay` in the Approov Token claims doesn't match a base64 encoded sha256 hash of the Authorization token."
+									},
+									"response": []
+								},
+								{
+									"name": "Missing the Approov Token Binding Header",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.v9CxDagzviU6VcilyT7pC793FDzm_bjqG2sQqmmU5GE"
+											},
+											{
+												"key": "",
+												"type": "text",
+												"value": "",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/approov-token-binding-protected",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"approov-token-binding-protected"
+											]
+										},
+										"description": "The key `pay` in the Approov Token claims doesn't match a base64 encoded sha256 hash of the Authorization token."
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dc99b9e7-8e32-49b1-a6e0-f275bacfb992",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "bd35db93-c3f8-46ea-8b43-0717aacc8603",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Missing the Approov  Token",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{DOMAIN}}/api/approov-token-protected",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"approov-token-protected"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Malformed Approov Token",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "adasdasdsadasd"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/approov-token-protected",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"approov-token-protected"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expired Approov Token with valid signature",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUwODMzNDkuMzc3NzYyM30.XzZs_ItunAmisfTAuLLHqTytNnQqnwqh0Koh3PPKAoM"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/approov-token-protected",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"approov-token-protected"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e1e54dfd-4285-4731-a5db-3682378e57f2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c129836-5767-4411-b5ed-abf8efc1b9e8",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Api Home",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/api",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Nginx Root index.html",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DOMAIN}}",
+					"host": [
+						"{{DOMAIN}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4973bd9c-1998-4d7a-bfeb-db6b17a8a856",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ce893291-c183-481b-a350-fcf626cfc8d4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "d42858b3-75b0-4593-8b82-e5c3c5ef96bb",
+			"key": "DOMAIN",
+			"value": "http://localhost:8002",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

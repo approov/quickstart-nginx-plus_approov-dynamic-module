@@ -1,0 +1,30 @@
+version: "2.3"
+
+services:
+
+  server:
+    image: approov/nginx-plus-demo
+    build: ./docker/build
+    restart: always
+    env_file: .env
+    environment:
+      - FLASK_ENV=prod
+    scale: 3
+    networks:
+      - traefik
+      - default
+    expose:
+      - 5000
+    command: "flask run -h 0.0.0.0 --reload"
+    volumes:
+      - "./server:/home/developer/workspace"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=nginx-plus-demo"
+      - "traefik.docker.network=traefik"
+      - "traefik.port=5000"
+      - "traefik.frontend.rule=Host:nginx-plus-demo.pdm.approov.io"
+
+networks:
+  traefik:
+    external: true

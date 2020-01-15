@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -eu
+
+Main()
+{
+    local centos_version="${1? Missing major version for Centos.}"
+
+    yum install -y ca-certificates
+    curl -o /etc/yum.repos.d/nginx-plus-"${centos_version}".repo https://cs.nginx.com/static/files/nginx-plus-"${centos_version}".repo
+    yum install -y nginx-plus nginx-plus-module-lua
+
+    ls -al /etc/ssl/domain
+    mkdir -p /etc/letsencrypt
+    cp -r /etc/ssl/domain /etc/letsencrypt/live
+    chown -R root:nginx /etc/letsencrypt/live
+    ls -al /etc/letsencrypt/live
+
+    echo
+    nginx -v
+    echo
+}
+
+Main ${@}

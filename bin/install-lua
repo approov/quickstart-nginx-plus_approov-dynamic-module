@@ -1,0 +1,58 @@
+#!/bin/sh
+
+set -eu
+
+Install_Lua()
+{
+  # @link https://www.lua.org/start.html
+  yum install -y lua
+}
+
+
+Install_LuaRocks_Package_Manager()
+{
+  local LUAROCKS_VERSION="${1:-3.2.1}"
+  local LUAJIT_VERSION="${2:-2.1}"
+
+  # @link https://docs.nginx.com/nginx/admin-guide/dynamic-modules/lua/
+  yum install -y make openssl gcc unzip
+
+  # @link https://luarocks.org/
+  # @link https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+  mkdir tmp_build
+  cd tmp_build
+  curl -SL -o luarocks.tar.gz https://luarocks.org/releases/luarocks-${LUAROCKS_VERSION}.tar.gz
+  tar zxpf luarocks.tar.gz
+  cd luarocks-${LUAROCKS_VERSION}
+  ./configure --with-lua-include=/usr/include/nginx-luajit-${LUAJIT_VERSION}
+  make build
+  make install
+  cd ../../
+  rm -rf tmp_build
+}
+
+Install_Lua_Packages()
+{
+  luarocks install lua-cjson
+  luarocks install lua-resty-jwt
+  luarocks install lua-resty-string
+  luarocks install basexx
+}
+
+Main()
+{
+  Install_Lua
+  Install_LuaRocks_Package_Manager ${@}
+  Install_Lua_Packages
+
+  echo
+  echo "--------------------- VERSIONS ---------------------"
+  echo
+  lua -v
+  echo
+  luarocks --version
+  echo "----------------------------------------------------"
+  echo
+}
+
+Main ${@}

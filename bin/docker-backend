@@ -1,0 +1,87 @@
+#!/bin/sh
+
+set -eu
+
+Docker_Container_Is_Running()
+{
+  docker container ls -a | grep -w "${_container_name}" - | grep -qw Up -
+  return $?
+}
+
+Docker_Container_Is_Stopped()
+{
+  docker container ls -a | grep -w "${_container_name}" - | grep -qw Exited -
+  return $?
+}
+
+Main()
+{
+  local _command="zsh"
+  local _image_name="approov/backend"
+  local _container_name="approov-backend"
+
+  # Creates the network, and ignores the error when trying to create it again
+  sudo docker network create approov &>/dev/null || true
+
+  for input in "${@}"; do
+    case "${input}" in
+
+      build )
+        docker build \
+          --tag "${_image_name}" \
+          "${PWD}/backend/docker/build"
+
+        exit $?
+      ;;
+
+      destroy )
+        docker container stop "${_container_name}"
+        docker image rm "${_image_name}"
+        docker image rm python:3.8-slim
+        exit $?
+      ;;
+
+      down )
+        docker container stop "${_container_name}"
+        exit $?
+      ;;
+
+      logs )
+        docker container logs -f "${_container_name}"
+        exit $?
+      ;;
+
+      up )
+        #  --publish 127.0.0.1:8003:5000 \
+        docker run \
+          -d \
+          --rm \
+          --name "${_container_name}" \
+          --env "FLASK_ENV=prod" \
+          --env "FLASK_APP=main.py" \
+          --volume "${PWD}/backend/server:/home/developer/workspace" \
+          --network approov \
+          "${_image_name}"
+
+        exit $?
+      ;;
+
+      shell )
+        if Docker_Container_Is_Running "${_container_name}" ; then
+          docker exec \
+            -it \
+            "${_container_name}" \
+            "${_command}"
+
+          exit $?
+        else
+          printf "\n---> Container not running. Start it first!\n"
+          exit 1
+        fi
+      ;;
+
+    esac
+  done
+}
+
+Main ${@}
