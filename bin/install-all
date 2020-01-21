@@ -20,8 +20,6 @@ Main()
         printf "\n---> UNABLE TO DETECT MAJOR VERSION FOR CENTOS <---"
     fi
 
-    env | grep APPROOV -
-
     ./bin/install-nginx-plus "${centos_version}"
     ./bin/install-lua
     ./bin/install-approov ${@}

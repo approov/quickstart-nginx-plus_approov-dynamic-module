@@ -98,16 +98,26 @@ By looking into the full [approov-example.conf](/etc/nginx/conf.d/approov-exampl
 We require the Approov module with:
 
 ```nginx
-lua_package_path "/etc/nginx/modules/approov/?.lua;;";
+lua_package_path "/etc/nginx/modules/?.lua;;/etc/nginx/modules/approov/?.lua;;";
 ```
 
 To protect an API endpoint with an Approov Token its necessary to include inside each location block:
 
 ```nginx
-include /etc/nginx/modules/approov/token-check.conf;
+# Changes the default header from `Authorization` to `Approov-Token`
+auth_jwt   "APPROOV" token=$http_Approov_Token;
+
+# Relative path to the `nginx.conf` for the file `approov-secret.jwk`, that contains the Approov base64url encoded secret to be used to verify the Approov Tokens signature.
 ```
 
-or if we want the additional protection of checking for the Approov Token and for the Approov Token binding we include inside each location block:
+or if we want the additional protection for checking the Approov Token and for the Approov Token binding, then we include inside each location block:
 
 ```nginx
-include /etc/nginx/modules/approov/token-binding-check.conf;
+auth_jwt          "APPROOV" token=$http_Approov_Token;
+auth_jwt_key_file approov-secret.jwk;
+
+access_by_lua '
+    local approov = require("token-binding-check")
+    approov.checkTokenBinding(ngx.var.jwt_claim_pay, ngx.var.http_Authorization)
+';
+```

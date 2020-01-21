@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a8e50f5d-97c1-4248-b346-a89c2145c324",
+		"_postman_id": "683a6c5c-0621-4bd5-9730-86e0a71540df",
 		"name": "Approov Nginx Plus",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -18,7 +18,7 @@
 								"header": [
 									{
 										"key": "Approov-Token",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9U",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.pSmWukovK2IqVaWBX1WC016XjOpzjATjeVKfnIUzdIQ",
 										"type": "text"
 									}
 								],
@@ -43,7 +43,7 @@
 									{
 										"key": "Approov-Token",
 										"type": "text",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9A"
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjE1MDg2ODMyMDV9.4tCsdoXoYvxNByus81Fbe8LlHShYVzDHhCcscnQ_6-U"
 									}
 								],
 								"url": {
@@ -55,9 +55,63 @@
 										"nginx-modules-reference.pdf"
 									]
 								},
-								"description": "The request includes an Invalid Approov Token header."
+								"description": "The request includes an Invalid Approov Token header, because it have expired."
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Invalid Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjE1MDg2ODMyMDV9.4tCsdoXoYvxNByus81Fbe8LlHShYVzDHhCcscnQ_6-U"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/nginx-modules-reference.pdf",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"nginx-modules-reference.pdf"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "html",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.17.6"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Jan 2020 10:41:28 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/html"
+										},
+										{
+											"key": "Content-Length",
+											"value": "179"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "WWW-Authenticate",
+											"value": "Bearer realm=\"APPROOV\",error=\"invalid_token\""
+										}
+									],
+									"cookie": [],
+									"body": "<html>\n    <head>\n        <title>401 Authorization Required</title>\n    </head>\n    <body>\n        <center>\n            <h1>401 Authorization Required</h1>\n        </center>\n        <hr>\n        <center>nginx/1.17.6</center>\n    </body>\n</html>"
+								}
+							]
 						}
 					],
 					"description": "The PDF can only be retrieved if the request includes a valid Approov Token header.",
@@ -106,7 +160,7 @@
 											{
 												"key": "Approov-Token",
 												"type": "text",
-												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MTgwMTgyMjQuNzgwMzY4LCJwYXkiOiJWUUZGUEpaNjgyYU90eFJNanowa3RDSG15V2VFRWVTTXZYaDF1RDhKM3ZrPSJ9.N-KwuLeUt9s6TDibhX32AIkhobCYVh5-brVESqUxdBk"
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MTgwMTgyMjQuNzgwMzY4LCJwYXkiOiJWUUZGUEpaNjgyYU90eFJNanowa3RDSG15V2VFRWVTTXZYaDF1RDhKM3ZrPSJ9.KenfIMVdNBZPyA1RKCID5L-9YT5gZGPnz91HxxYGJb4"
 											},
 											{
 												"key": "Authorization",
@@ -126,7 +180,63 @@
 										},
 										"description": "The approov token contains a payload that is a base64 string of the sha256 hash for the oauth2-token.\n\nThis ties the approov token with the user authentication token, thus securing further the request."
 									},
-									"response": []
+									"response": [
+										{
+											"name": "Valid Approov Token Binding",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Approov-Token",
+														"type": "text",
+														"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MTgwMTgyMjQuNzgwMzY4LCJwYXkiOiJWUUZGUEpaNjgyYU90eFJNanowa3RDSG15V2VFRWVTTXZYaDF1RDhKM3ZrPSJ9.KenfIMVdNBZPyA1RKCID5L-9YT5gZGPnz91HxxYGJb4"
+													},
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+													}
+												],
+												"url": {
+													"raw": "{{DOMAIN}}/api/approov-token-binding-protected",
+													"host": [
+														"{{DOMAIN}}"
+													],
+													"path": [
+														"api",
+														"approov-token-binding-protected"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Server",
+													"value": "nginx/1.17.6"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 24 Jan 2020 10:20:04 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Content-Length",
+													"value": "71"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"hostname\": \"6c2718503db7\",\n    \"status\": \"APPROOV_TOKEN_BINDING_PROTECTED\"\n}"
+										}
+									]
 								},
 								{
 									"name": "Without the Approov Token Binding",
@@ -136,7 +246,7 @@
 											{
 												"key": "Approov-Token",
 												"type": "text",
-												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9U"
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.pSmWukovK2IqVaWBX1WC016XjOpzjATjeVKfnIUzdIQ"
 											},
 											{
 												"key": "Authorization",
@@ -156,7 +266,63 @@
 										},
 										"description": "We need to accept the request as valid, even when the token binding is normally used in the Approov Token, but is not present. This will happen when the Approov token comes from the Approov failover running in the Google Cloud."
 									},
-									"response": []
+									"response": [
+										{
+											"name": "Without the Approov Token Binding",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Approov-Token",
+														"type": "text",
+														"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.pSmWukovK2IqVaWBX1WC016XjOpzjATjeVKfnIUzdIQ"
+													},
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+													}
+												],
+												"url": {
+													"raw": "{{DOMAIN}}/api/approov-token-binding-protected",
+													"host": [
+														"{{DOMAIN}}"
+													],
+													"path": [
+														"api",
+														"approov-token-binding-protected"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Server",
+													"value": "nginx/1.17.6"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 24 Jan 2020 10:23:23 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Content-Length",
+													"value": "71"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"hostname\": \"6c2718503db7\",\n    \"status\": \"APPROOV_TOKEN_BINDING_PROTECTED\"\n}"
+										}
+									]
 								}
 							],
 							"event": [
@@ -192,7 +358,7 @@
 									{
 										"key": "Approov-Token",
 										"type": "text",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9U"
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.pSmWukovK2IqVaWBX1WC016XjOpzjATjeVKfnIUzdIQ"
 									}
 								],
 								"url": {
@@ -206,7 +372,58 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Approov Token with valid signature and expire time",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.pSmWukovK2IqVaWBX1WC016XjOpzjATjeVKfnIUzdIQ"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/approov-token-protected",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"approov-token-protected"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.17.6"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Jan 2020 10:25:20 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "63"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"hostname\": \"6c2718503db7\",\n    \"status\": \"APPROOV_TOKEN_PROTECTED\"\n}"
+								}
+							]
 						}
 					],
 					"protocolProfileBehavior": {},
@@ -226,7 +443,7 @@
 											{
 												"key": "Approov-Token",
 												"type": "text",
-												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.v9CxDagzviU6VcilyT7pC793FDzm_bjqG2sQqmmU5GE"
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.5tsHeglDEv_89lPVKjCmMWrfPW3phvcgDEGlNn7ZACU"
 											},
 											{
 												"key": "Authorization",
@@ -246,7 +463,63 @@
 										},
 										"description": "The key `pay` in the Approov Token claims doesn't match a base64 encoded sha256 hash of the Authorization token."
 									},
-									"response": []
+									"response": [
+										{
+											"name": "Invalid Approov Token Binding",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Approov-Token",
+														"type": "text",
+														"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.5tsHeglDEv_89lPVKjCmMWrfPW3phvcgDEGlNn7ZACU"
+													},
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+													}
+												],
+												"url": {
+													"raw": "{{DOMAIN}}/api/approov-token-binding-protected",
+													"host": [
+														"{{DOMAIN}}"
+													],
+													"path": [
+														"api",
+														"approov-token-binding-protected"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Server",
+													"value": "nginx/1.17.6"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 24 Jan 2020 10:27:01 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "2"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										}
+									]
 								},
 								{
 									"name": "Missing the Approov Token Binding Header",
@@ -256,7 +529,7 @@
 											{
 												"key": "Approov-Token",
 												"type": "text",
-												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.v9CxDagzviU6VcilyT7pC793FDzm_bjqG2sQqmmU5GE"
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.5tsHeglDEv_89lPVKjCmMWrfPW3phvcgDEGlNn7ZACU"
 											},
 											{
 												"key": "",
@@ -277,7 +550,64 @@
 										},
 										"description": "The key `pay` in the Approov Token claims doesn't match a base64 encoded sha256 hash of the Authorization token."
 									},
-									"response": []
+									"response": [
+										{
+											"name": "Missing the Approov Token Binding Header",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Approov-Token",
+														"type": "text",
+														"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.5tsHeglDEv_89lPVKjCmMWrfPW3phvcgDEGlNn7ZACU"
+													},
+													{
+														"key": "",
+														"type": "text",
+														"value": "",
+														"disabled": true
+													}
+												],
+												"url": {
+													"raw": "{{DOMAIN}}/api/approov-token-binding-protected",
+													"host": [
+														"{{DOMAIN}}"
+													],
+													"path": [
+														"api",
+														"approov-token-binding-protected"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Server",
+													"value": "nginx/1.17.6"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 24 Jan 2020 10:30:50 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "2"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										}
+									]
 								}
 							],
 							"event": [
@@ -321,7 +651,56 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Missing the Approov  Token",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{DOMAIN}}/api/approov-token-protected",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"approov-token-protected"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.17.6"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 21 Jan 2020 20:34:25 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "WWW-Authenticate",
+											"value": "Bearer realm=\"APPROOV\""
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								}
+							]
 						},
 						{
 							"name": "Malformed Approov Token",
@@ -345,17 +724,126 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Malformed Approov Token",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "adasdasdsadasd"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/approov-token-protected",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"approov-token-protected"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.17.6"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 21 Jan 2020 20:34:43 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "WWW-Authenticate",
+											"value": "Bearer realm=\"APPROOV\",error=\"invalid_token\""
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								},
+								{
+									"name": "Malformed Approov Token",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "adasdasdsadasd"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/approov-token-protected",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"approov-token-protected"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.17.6"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 21 Jan 2020 20:35:15 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "WWW-Authenticate",
+											"value": "Bearer realm=\"APPROOV\",error=\"invalid_token\""
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								}
+							]
 						},
 						{
-							"name": "Expired Approov Token with valid signature",
+							"name": "Approov Token withou KID",
 							"request": {
 								"method": "GET",
 								"header": [
 									{
 										"key": "Approov-Token",
 										"type": "text",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUwODMzNDkuMzc3NzYyM30.XzZs_ItunAmisfTAuLLHqTytNnQqnwqh0Koh3PPKAoM"
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MTgwMTgyMjQuNzgwMzY4fQ.1QoSATT7LLN61p1hX9cCDSZ3VrL_GKT5aP5HkPbaRFk"
 									}
 								],
 								"url": {
@@ -369,7 +857,141 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Approov Token withou KID",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MTgwMTgyMjQuNzgwMzY4fQ.1QoSATT7LLN61p1hX9cCDSZ3VrL_GKT5aP5HkPbaRFk"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/approov-token-protected",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"approov-token-protected"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.17.6"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Jan 2020 10:36:34 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "WWW-Authenticate",
+											"value": "Bearer realm=\"APPROOV\",error=\"invalid_token\""
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								}
+							]
+						},
+						{
+							"name": "Expired Approov Token with valid signature",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjE1MTgwMTgyMjR9.JBrWvSPeh_9zDXyBXy12ghfiaL8ddo9Be4hw42Acfw0"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/approov-token-protected",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"approov-token-protected"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Expired Approov Token with valid signature",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjE1MTgwMTgyMjR9.JBrWvSPeh_9zDXyBXy12ghfiaL8ddo9Be4hw42Acfw0"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/approov-token-protected",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"approov-token-protected"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.17.6"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Jan 2020 10:38:44 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "WWW-Authenticate",
+											"value": "Bearer realm=\"APPROOV\",error=\"invalid_token\""
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								}
+							]
 						}
 					],
 					"event": [
@@ -412,7 +1034,51 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Api Home",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{DOMAIN}}/api",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.17.6"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 21 Jan 2020 20:36:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"hostname\": \"92fee77966ad\",\n    \"status\": \"NOT_APPROOV_TOKEN_PROTECTED\"\n}"
+						}
+					]
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -429,7 +1095,60 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Nginx Root index.html",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}",
+							"host": [
+								"{{DOMAIN}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.17.6"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Jan 2020 20:37:14 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html"
+						},
+						{
+							"key": "Last-Modified",
+							"value": "Thu, 28 Nov 2019 08:46:49 GMT"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5ddf8979-264\""
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "<!DOCTYPE html>\n<html>\n    <head>\n        <title>Welcome to nginx!</title>\n        <style>\n    body {\n        width: 35em;\n        margin: 0 auto;\n        font-family: Tahoma, Verdana, Arial, sans-serif;\n    }\n</style>\n    </head>\n    <body>\n        <h1>Welcome to nginx!</h1>\n        <p>If you see this page, the nginx web server is successfully installed and\nworking. Further configuration is required.</p>\n        <p>For online documentation and support please refer to\n\n            <a href=\"http://nginx.org/\">nginx.org</a>.\n            <br/>\nCommercial support is available at\n            <a href=\"http://nginx.com/\">nginx.com</a>.\n        </p>\n        <p>\n            <em>Thank you for using nginx.</em>\n        </p>\n    </body>\n</html>"
+				}
+			]
 		}
 	],
 	"event": [

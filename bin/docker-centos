@@ -83,15 +83,10 @@ Main()
           exit $?
         fi
 
-        if [ ! -f "${_env_file}" ]; then
-          cp "${_env_example_file}" "${_env_file}"
-        fi
-
         docker run \
           -it \
           --name "${_container_name}" \
           --workdir /approov \
-          --env-file "${_env_file}" \
           --volume ${PWD}:/approov \
           --volume ${nginx_cert_path}:/etc/ssl/nginx \
           --volume ${domain_cert_path}:/etc/ssl/domain \

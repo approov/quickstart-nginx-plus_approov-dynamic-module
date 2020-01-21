@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 @api.route("/api")
 def apiHome():
-    log.info("Not Approov Token protected request for: /api")
+    log.info("No Approov Token protection for request: /api")
     return _hostnameResponse("NOT_APPROOV_TOKEN_PROTECTED")
 
 @api.route("/api/approov-token-protected")

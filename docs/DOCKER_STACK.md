@@ -36,7 +36,6 @@ nginx
 
 Visit the url of your server at the port you have started the container with, defaults to `8002`, that in local development will be http://localhost:8002, and you will see the default Nginx `index.html` page, meaning that we are ready to proceed to add the Approov module into Nginx.
 
-```
 
 ### Build the Backend
 
