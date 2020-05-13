@@ -41,7 +41,7 @@ We need an [Approov secret](https://approov.io/docs/latest/approov-cli-tool-refe
 ### Retrieve the Approov Secret
 
 ```
-approov secret /path/to/approov/administration.token -get
+approov secret /path/to/approov/administration.token -get base64url
 ```
 
 ### Set the Approov Secret Unique Key Identifier(KID)

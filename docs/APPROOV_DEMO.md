@@ -49,7 +49,7 @@ NTQ0ZDVkZWE4ZjE0OTJjMjUxMmZiZGNjZjY2NTllNTIxNmQzZjA4MGZiMTY0ZDRhMDNkYjcwMGY2YWY1
 >For a production backend you will need to use the [Approov CLI tool](https://www.approov.io/docs/v2.1/approov-cli-tool-reference/#secret-command):
 >
 >```
->approov secret /path/to/approov/administration.token -get
+>approov secret /path/to/approov/administration.token -get base64url
 >```
 
 ### Set the Approov Base64URL Encoded Secret
