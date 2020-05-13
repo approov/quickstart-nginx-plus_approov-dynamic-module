@@ -23,7 +23,7 @@ cd nginx-plus_approov-dynamic-module
 
 ## APPROOV SECRET
 
-The Approov secret used in this demo, that you are about to create, his not a production secret, aka, obtained via the [Approov CLI tool](https://www.approov.io/docs/v2.1/approov-cli-tool-reference/#secret-command), instead it was generated with OpenSSL.
+The Approov secret used in this demo, that you are about to create, is not a production secret, aka, obtained via the [Approov CLI tool](https://www.approov.io/docs/latest/approov-cli-tool-reference/#secret-command), instead it was generated with OpenSSL.
 
 ### Generate an Approov Base64URL Encoded Secret for Test Purposes
 
