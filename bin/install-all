@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -eu
+
+Main()
+{
+    local centos_version=$(source /etc/os-release && echo $VERSION_ID)
+
+    for input in "${@}"; do
+        case "${input}" in
+            --centos-version )
+                shift 1
+                local centos_version="${1? Missing major version for Centos.}"
+                shift 1
+            ;;
+        esac
+    done
+
+    if [ -z "${centos_version}" ]; then
+        printf "\n---> UNABLE TO DETECT MAJOR VERSION FOR CENTOS <---"
+    fi
+
+    ./bin/install-nginx-plus "${centos_version}"
+    ./bin/install-lua
+    ./bin/install-approov ${@}
+}
+
+Main ${@}

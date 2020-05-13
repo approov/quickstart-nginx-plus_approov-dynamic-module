@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+Main()
+{
+    ./bin/docker-backend destroy
+    ./bin/docker-centos destroy
+}
+
+Main

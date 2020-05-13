@@ -1,0 +1,104 @@
+#!/bin/sh
+
+set -eu
+
+Docker_Container_Is_Running()
+{
+  docker container ls -a | grep -w "${_container_name}" - | grep -qw Up -
+  return $?
+}
+
+Docker_Container_Is_Stopped()
+{
+  docker container ls -a | grep -w "${_container_name}" - | grep -qw Exited -
+  return $?
+}
+
+Stack_Down()
+{
+  docker container stop "${_container_name}"
+  docker container rm "${_container_name}"
+}
+
+Main()
+{
+  local port=8002
+  local nginx_cert_path="/etc/ssl/nginx"
+  local domain_cert_path="/etc/letsencrypt/live"
+
+  local _command=bash
+  local _image_name=centos:7
+  local _container_name="approov-centos"
+  local _env_file="${PWD}/.env"
+  local _env_example_file="${PWD}/.env.example"
+
+  # Creates the network, and ignores the error when trying to create it again
+  sudo docker network create approov &>/dev/null || true
+
+  for input in "${@}"; do
+    case "${input}" in
+
+      -p | --port )
+        local port=${2? Missing port}
+        shift 2
+      ;;
+
+      --domain-cert-path )
+        local domain_cert_path="${2? Missing path to domain certificate and private key dir.}"
+        shift 2
+      ;;
+
+      --nginx-cert-path )
+        local nginx_cert_path="${2? Missing path to Nginx Plus certificate and private key dir.}"
+        shift 2
+      ;;
+
+      destroy )
+        Stack_Down
+        docker image rm "${_image_name}"
+        exit $?
+      ;;
+
+      down )
+        Stack_Down
+        exit $?
+      ;;
+
+      shell )
+
+        if Docker_Container_Is_Running "${_container_name}" ; then
+          docker exec \
+            -it \
+            "${_container_name}" \
+            "${_command}"
+
+          exit $?
+        fi
+
+        if Docker_Container_Is_Stopped "${_container_name}" ; then
+          docker start \
+            -ai \
+            "${_container_name}"
+
+          exit $?
+        fi
+
+        docker run \
+          -it \
+          --name "${_container_name}" \
+          --workdir /approov \
+          --volume ${PWD}:/approov \
+          --volume ${nginx_cert_path}:/etc/ssl/nginx \
+          --volume ${domain_cert_path}:/etc/ssl/domain \
+          --publish ${port}:8002 \
+          --network approov \
+          "${_image_name}" "${_command}"
+
+        exit $?
+      ;;
+    esac
+  done
+
+}
+
+Main ${@}

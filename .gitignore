@@ -1,4 +1,5 @@
+.passwd.hash
 .local/
 .Trash-1000/
-.env
+*.env
 sftp-config.json

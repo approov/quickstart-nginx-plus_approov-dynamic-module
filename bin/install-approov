@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -eu
+
+Main()
+{
+  if [ ! -f ./etc/nginx/approov-secret.jwk ]; then
+    printf "\n---> FATAL ERROR: Missing file ./etc/nginx/approov-secret.jwk, check README for instructions. <---\n\n"
+    exit 1
+  fi
+
+  cp -b ./etc/nginx/approov-secret.jwk /etc/nginx/approov-secret.jwk
+
+  for input in "${@}"; do
+    case "${input}" in
+      --with-nginx-conf )
+          cp -b ./etc/nginx/nginx.conf /etc/nginx/nginx.conf
+        ;;
+      --with-server-examples )
+          cp -r -b ./etc/nginx/conf.d /etc/nginx
+        ;;
+    esac
+  done
+
+  cp -r ./etc/nginx/modules/approov /etc/nginx/modules
+}
+
+Main ${@}

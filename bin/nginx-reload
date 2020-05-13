@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+Main()
+{
+    ./bin/install-approov --with-nginx-conf --with-server-examples
+    nginx -s reload
+}
+
+Main
