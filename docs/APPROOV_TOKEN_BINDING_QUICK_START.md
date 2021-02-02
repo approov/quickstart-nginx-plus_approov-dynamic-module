@@ -102,8 +102,10 @@ We need an [Approov secret](https://approov.io/docs/latest/approov-cli-tool-refe
 ### Retrieve the Approov Secret
 
 ```
-approov secret /path/to/approov/administration.token -get base64url
+approov secret -get base64url
 ```
+
+> **NOTE:** The `approov secret` command requires an [administration role](https://approov.io/docs/latest/approov-usage-documentation/#account-access-roles) to execute successfully.
 
 ### Set the Approov Secret Unique Key Identifier(KID)
 
@@ -113,8 +115,10 @@ The `kid` identifier must be presented in the JWT header of any Approov Token we
 So set it in the Approov cloud service with this command:
 
 ```
- approov secret /path/to/approov//administration.tok -setKeyID 0001
+approov secret -setKeyID 0001
 ```
+
+> **NOTE:** The `approov secret` command requires an [administration role](https://approov.io/docs/latest/approov-usage-documentation/#account-access-roles) to execute successfully.
 
 Now the Approov cloud service will always add the `kid` you set to any Approov Token it issues.
 
