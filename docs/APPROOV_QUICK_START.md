@@ -8,18 +8,11 @@ We strongly advise you to try first this quick start in a development environmen
 
 If you haven't done it already, please follow [these instructions](https://approov.io/docs/latest/approov-installation/#approov-tool) from the Approov docs to download and install the [Approov CLI Tool](https://approov.io/docs/latest/approov-cli-tool-reference/).
 
-Don't forget to export your Approov management token:
+Don't forget to enable your Approov `admin` role with:
 
+```bash
+eval `approov role admin`
 ```
-export APPROOV_MANAGEMENT_TOKEN=$(cat /path/to/development.token)
-```
-
-> **NOTE:**
->
-> The above export is only valid for the current shell session. 
-> If you open another shell you need to repeat it. 
-> Add it to your `.bashrc` file in order to persist it across shell sessions.
-
 
 ## APPROOV API
 
