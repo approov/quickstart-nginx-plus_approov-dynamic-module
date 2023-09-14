@@ -1,4 +1,4 @@
-# APPROOV DEMO 
+# APPROOV DEMO
 
 We recommend to follow this Approov Integration example in a Docker container for Centos, and we will provide some [bash scripts](/bin/) to help with the docker commands and all the setup needed to be up and running. More detailed information can be found in [DOCKER_STACK.md](/docs/DOCKER_STACK.md).
 
@@ -23,7 +23,7 @@ cd nginx-plus_approov-dynamic-module
 
 ## APPROOV SECRET
 
-The Approov secret used in this demo, that you are about to create, is not a production secret, aka, obtained via the [Approov CLI tool](https://www.approov.io/docs/latest/approov-cli-tool-reference/#secret-command), instead it was generated with OpenSSL.
+The Approov secret used in this demo, that you are about to create, is not a production secret, i.e. obtained via the [Approov CLI tool](https://www.approov.io/docs/latest/approov-cli-tool-reference/#secret-command), instead it was generated with OpenSSL.
 
 ### Generate an Approov Base64URL Encoded Secret for Test Purposes
 
@@ -87,7 +87,7 @@ Using the secret that we generated above, the file should look like this:
 }
 ```
 
-To bear in mind that the `kid` can have a more complex unique identifier, than the `0001` used here. 
+To bear in mind that the `kid` can have a more complex unique identifier, than the `0001` used here.
 
 The `kid` identifier must be presented in the JWT header of any Approov Token we want to verify, otherwise Nginx will not know what secret to use to verify it, and the validation will fail.
 
@@ -104,7 +104,7 @@ JWT header [example](https://jwt.io/#debugger-io?token=eyJ0eXAiOiJKV1QiLCJhbGciO
 > **NOTE**: You can use the Approov base64url encoded from this README to verify the signature for this example, that we link to jwt.io. Just replace the secret where it says `your-256-bit-secret` and tick the box for `secret base64 encoded`, and the JWT token must match with this one:
 >```
 >eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.5tsHeglDEv_89lPVKjCmMWrfPW3phvcgDEGlNn7ZACU
->``` 
+>```
 
 ## CENTOS SERVER
 
@@ -185,7 +185,7 @@ This example is for a valid Approov Token Header that includes the token binding
 
 ```
 curl -i -X GET \
-  https://nginx-plus-demo.pdm.approov.io:8002/api/approov-token-binding-protected \
+  https://nginx-plus-demo.example.com:8002/api/approov-token-binding-protected \
   -H 'Approov-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MTgwMTgyMjQuNzgwMzY4LCJwYXkiOiJWUUZGUEpaNjgyYU90eFJNanowa3RDSG15V2VFRWVTTXZYaDF1RDhKM3ZrPSJ9.KenfIMVdNBZPyA1RKCID5L-9YT5gZGPnz91HxxYGJb4' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
   -H 'Cache-Control: no-cache'
@@ -217,7 +217,7 @@ This example also contains the token binding, but this time the Authorization to
 
 ```
 curl -i -X GET \
-  https://nginx-plus-demo.pdm.approov.io:8002/api/approov-token-binding-protected \
+  https://nginx-plus-demo.example.com:8002/api/approov-token-binding-protected \
   -H 'Approov-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.5tsHeglDEv_89lPVKjCmMWrfPW3phvcgDEGlNn7ZACU' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
   -H 'Cache-Control: no-cache'

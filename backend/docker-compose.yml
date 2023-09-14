@@ -23,7 +23,7 @@ services:
       - "traefik.backend=nginx-plus-demo"
       - "traefik.docker.network=traefik"
       - "traefik.port=5000"
-      - "traefik.frontend.rule=Host:nginx-plus-demo.pdm.approov.io"
+      - "traefik.frontend.rule=Host:nginx-plus-demo.example.com"
 
 networks:
   traefik:

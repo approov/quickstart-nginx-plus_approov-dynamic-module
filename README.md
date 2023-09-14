@@ -21,4 +21,4 @@ Please follow this [guide](/docs/APPROOV_TOKEN_BINDING_QUICK_START.md) for a qui
 
 ## APPROOV DEMO
 
-The [Approov demo](/docs/APPROOV_DEMO.md) has the goal of showing to bot experienced and inexperienced NGINX Plus users how Approov can be integrated in a new NGINX Plus instance. The [Approov Token Binding](https://approov.io/docs/latest/approov-usage-documentation/#token-binding) advanced feature is also included in the demo.
+The [Approov demo](/docs/APPROOV_DEMO.md) has the goal of showing to both experienced and inexperienced NGINX Plus users how Approov can be integrated in a new NGINX Plus instance. The [Approov Token Binding](https://approov.io/docs/latest/approov-usage-documentation/#token-binding) advanced feature is also included in the demo.

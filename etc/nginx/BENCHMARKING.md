@@ -4,7 +4,7 @@
 Testing with `ab` tool:
 
 ```
-ab -n 1000 -c 5 -s 2 -l -H 'Approov-Token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjE0Nzc4MzY4MDAsImlzcyI6IkxVQSAtIEFwcHJvb3YgVG9rZW4gQ2hlY2tlciJ9.ZNmv054qZJC6KIvK-Ycfq6mXV1Qm\-vWRzYB49UU94A0' http://pdm.approov.io:8000/approov-token-protected
+ab -n 1000 -c 5 -s 2 -l -H 'Approov-Token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJleHAiOjE0Nzc4MzY4MDAsImlzcyI6IkxVQSAtIEFwcHJvb3YgVG9rZW4gQ2hlY2tlciJ9.ZNmv054qZJC6KIvK-Ycfq6mXV1Qm\-vWRzYB49UU94A0' http://example.com:8000/approov-token-protected
 
 ```
 
@@ -15,7 +15,7 @@ This is ApacheBench, Version 2.3 <$Revision: 1826891 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
-Benchmarking pdm.approov.io (be patient)
+Benchmarking example.com (be patient)
 Completed 100 requests
 Completed 200 requests
 Completed 300 requests
@@ -30,7 +30,7 @@ Finished 1000 requests
 
 
 Server Software:        nginx/1.17.3
-Server Hostname:        pdm.approov.io
+Server Hostname:        example.com
 Server Port:            8000
 
 Document Path:          /approov-token-protected
@@ -70,7 +70,7 @@ Percentage of the requests served within a certain time (ms)
 The AWS `t2.micro` instance:
 
 ```
-$ hostnamectl 
+$ hostnamectl
    Static hostname: ip-999-0-0-0.eu-west-1.compute.internal
          Icon name: computer-vm
            Chassis: vm

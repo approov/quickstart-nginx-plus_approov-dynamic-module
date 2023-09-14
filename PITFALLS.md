@@ -64,9 +64,9 @@ def apiApproovTokenProtected():
 def apiApproovTokenProtected():
 ```
 
-> **NOTE**: When using `curl` add option `-i` to print out the headers in the response, thus makeing easier and faster to spot some issues.
+> **NOTE**: When using `curl` add option `-i` to print out the headers in the response, thus making it easier and faster to spot some issues.
 
-  
+
 ## NGINX ERRORS IN LOGS
 
 For all errors we find in the Nginx logs.
@@ -76,7 +76,7 @@ For all errors we find in the Nginx logs.
 Line in logs:
 
 ```
-2020/01/17 14:05:42 [info] 1293#1293: *62 invalid JWT HS key, client: 109.48.104.109, server: , request: "GET /api/approov-token-protected HTTP/1.1", host: "nginx-plus-demo.pdm.approov.io:8002
+2020/01/17 14:05:42 [info] 1293#1293: *62 invalid JWT HS key, client: 109.48.104.109, server: , request: "GET /api/approov-token-protected HTTP/1.1", host: "nginx-plus-demo.example.com:8002
 ```
 
 #### Cause
